@@ -1,5 +1,5 @@
 # residencia-tic-18-python
 ## Repositório das atividades de Instrução Prática Python
 
-## Componentes da equipe
-### Carlos André de Souza Dias
+## Carlos André de Souza Dias
+### Instrução Prática PP-P002
