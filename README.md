@@ -10,3 +10,4 @@
     * Questão 6 - Arquivo questao6.ipynb
 * PP-P002 - Intrução Prática Python PP-P002
     * Questão 1 - Arquivo questao1.py
+    * Questão 2 - Arquivo questao2.py

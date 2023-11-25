@@ -1,5 +1,25 @@
 tarefas = []
 
+def abrir_arquivo():
+    try:
+        with open("tarefas.txt", "r") as arquivo:
+            linhas = arquivo.readlines()
+
+            for linha in linhas:
+                descricao, concluida = linha.strip().split(",")
+                tarefas.append({'descricao': descricao, 'concluida': concluida == 'True'})
+    except FileNotFoundError:
+        pass
+
+
+def salvar_tarefas():
+    with open("tarefas.txt", "w") as arquivo:
+        for tarefa in tarefas:
+            linha = f"{tarefa['descricao']},{tarefa['concluida']}\n"
+            arquivo.write(linha)
+
+abrir_arquivo() 
+
 def listar_tarefas():
     if not tarefas:
         print("\nNão existem tarefas para serem exibidas.")
@@ -61,6 +81,7 @@ while True:
             editar_tarefa()
         case '0':
             print("\nFinalizando programa...")
+            salvar_tarefas()
             break
         case _:
             print("\nOpção inválida.")
