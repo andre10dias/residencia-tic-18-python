@@ -177,10 +177,13 @@ class ListaNomes(AnaliseDados):
         Este método retorna uma representação da lista de nomes
         '''
         #print(f"Lista de nomes: {self.__lista}")
-        return f"Lista de nomes: {self.__lista}"
+
+        lista_formatada = ', '.join(str(nome) for nome in self.__lista)
+        return f"Lista de nomes: {lista_formatada}"
+    
     def listarEmOrdem(self):
-        pass
-        
+        lista_ordenada = sorted(self.__lista)
+        print(f"Lista de Nomes: [{lista_ordenada}]")
 	
 class ListaDatas(AnaliseDados):
         
@@ -258,8 +261,11 @@ class ListaDatas(AnaliseDados):
         datas_formatadas = ', '.join(str(data) for data in self.__lista)
         #print(f"Lista de Datas: [{datas_formatadas}]")
         return f"Lista de Datas: [{datas_formatadas}]"
+    def listarEmOrdem(self):
+        datas_ordenadas = sorted(self.__lista)  # Ordena as datas
+        datas_formatadas = ', '.join(str(data) for data in datas_ordenadas)
+        print(f"Lista de Datas: [{datas_formatadas}]") # imprime a lista ordenada
         
-
 class ListaSalarios(AnaliseDados):
 
     def __init__(self):
@@ -331,9 +337,13 @@ class ListaSalarios(AnaliseDados):
         '''
         Este método retorna uma representação da lista de salário
         '''
-        #print(f"Lista de Salários: {self.__lista}")
-        return f"Lista de Salários: {self.__lista}"
         
+        lista_formatada = ', '.join(str(salario) for salario in self.__lista)
+        #print(f"Lista de Salários: {lista_formatada}")
+        return lista_formatada
+    def listarEmOrdem(self):
+        lista_ordenada = sorted(self.__lista)
+        print(f"Lista de Salarios: [{lista_ordenada}]")
 
 class ListaIdades(AnaliseDados):
     
@@ -410,17 +420,22 @@ class ListaIdades(AnaliseDados):
         '''
         Este método retorna uma representação da lista de datas
         '''
-        #print(f"Lista de Idade: {self.__lista}")
-        return f"Lista de Idade: {self.__lista}"
+        lista_formatada = ', '.join(str(idade) for idade in self.__lista)
+        #print(f"Lista de idade: {lista_formatada}")
+        return lista_formatada
+
+    def listarEmOrdem(self):
+        lista_ordenada = sorted(self.__lista)
+        print(f"Lista de Salarios: [{lista_ordenada}]")
         
 
 def main():
     nomes = ListaNomes() # Criando uma instância da classe ListaNomes
     datas = ListaDatas()   # Criando uma instância da classe ListaDatas
     salarios = ListaSalarios() # Criando uma instância da classe ListaSalarios
-    idades = ListaIdades() # Criando uma instância da classe ListaIdades
+    idades = ListaIdades() # Criando uma instância da classe 2ListaIdades
 
-    listaListas = [nomes, datas, salarios, idades] # Criando uma lista contendo as listas criadas
+    listaListas = [salarios, idades] # Criando uma lista contendo as listas criadas
 
     for lista in listaListas: # Para cada lista na listaListas
         lista.entradaDeDados() # Chama o método entradaDeDados da lista 
@@ -428,7 +443,22 @@ def main():
         lista.mostraMenor() # Chama o método mostraMenor da lista
         lista.mostraMaior() # Chama o método mostraMaior da lista
         lista.__str__() # Chama o método __str__ da lista
+        lista.listarEmOrdem() # Chama o método listarEmOrdem da lista
         print("___________________")
+
+    #Utilizando o iterador zip para percorrer as listas de nomes e salários simultaneamente
+    print("Iterador zip - Nomes e Salários:")
+    for nome, salario in zip(nomes, salarios):
+        print(f"{nome}: R${salario}")
+
+    # Utilizando o iterador map para reajustar os salários em 10% expressão lambda
+    if not listaListas:
+            print("A lista está vazia.")
+    else: 
+        salarios_reajustados = list(map(lambda x: x * 10 / 100, salarios))
+        print("\nIterador map - Salários Reajustados em 10%:")
+        print(salarios_reajustados)
+
 
     print("Fim do teste!!!")
 
