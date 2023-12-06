@@ -104,6 +104,8 @@ class ListaNomes(AnaliseDados):
         super().__init__(type("String"))
         self.__lista = []     # Inicializa a lista vazia atributo privado   
 
+    def get(self):
+        return self.__lista
     def entradaDeDados(self):
         '''
         Este método pergunta ao usuários quantos
@@ -265,13 +267,26 @@ class ListaDatas(AnaliseDados):
         datas_ordenadas = sorted(self.__lista)  # Ordena as datas
         datas_formatadas = ', '.join(str(data) for data in datas_ordenadas)
         print(f"Lista de Datas: [{datas_formatadas}]") # imprime a lista ordenada
+
+    def modificarDiasAnteriores2019(self):
+        '''
+        Este método modifica os dias das datas anteriores a 2019 para o dia 1.
+        '''
+        if not self.__lista:
+            print("A lista está vazia.")
+            return None
+        
+        for i, data in enumerate(self.__lista):
+            if data.ano < 2019:
+                self.__lista[i] = Data(1, data.mes, data.ano)  
         
 class ListaSalarios(AnaliseDados):
 
     def __init__(self):
         super().__init__(type(float))
         self.__lista = []        
-
+    def get(self):
+        return self.__lista
     def entradaDeDados(self):
         '''
         Este método pergunta ao usuários quantos
@@ -345,6 +360,20 @@ class ListaSalarios(AnaliseDados):
         lista_ordenada = sorted(self.__lista)
         print(f"Lista de Salarios: [{lista_ordenada}]")
 
+    def ajustarSalarios(self):
+        if not self.__lista:
+                print("A lista está vazia.")
+        else: 
+            self.__lista = list(map(lambda x: x * 10 / 100, self.__lista))
+            print("\nIterador map - Salários Reajustados em 10%:")
+            print(self.__listas)
+    def calcularFolha(self):
+        if not self.__lista:
+            print("A lista de salários está vazia.")
+            return 0
+        folha_pagamento = sum(self.__lista)
+        print(f"Lista de Salarios: [{folha_pagamento}]")
+        return folha_pagamento
 class ListaIdades(AnaliseDados):
     
     def __init__(self):
@@ -428,38 +457,87 @@ class ListaIdades(AnaliseDados):
         lista_ordenada = sorted(self.__lista)
         print(f"Lista de Salarios: [{lista_ordenada}]")
         
-
+def percorrerNomeSalario(nomes, salarios):
+    if not nomes:
+        print("Nenhum nome cadastrado")
+        return None
+    if not salarios:
+        print("Nenhum salário cadastrado")
+        return None
+    print("Iterando Nomes e Salários:")
+    for nome, salario in zip(nomes, salarios):
+        print(f"{nome}: R${salario}")
 def main():
     nomes = ListaNomes() # Criando uma instância da classe ListaNomes
     datas = ListaDatas()   # Criando uma instância da classe ListaDatas
     salarios = ListaSalarios() # Criando uma instância da classe ListaSalarios
     idades = ListaIdades() # Criando uma instância da classe 2ListaIdades
 
-    listaListas = [salarios, idades] # Criando uma lista contendo as listas criadas
+    # listaListas = [nomes, datas, salarios, idades] # Criando uma lista contendo as listas criadas
 
-    for lista in listaListas: # Para cada lista na listaListas
-        lista.entradaDeDados() # Chama o método entradaDeDados da lista 
-        lista.mostraMediana() # Chama o método mostraMediana da lista
-        lista.mostraMenor() # Chama o método mostraMenor da lista
-        lista.mostraMaior() # Chama o método mostraMaior da lista
-        lista.__str__() # Chama o método __str__ da lista
-        lista.listarEmOrdem() # Chama o método listarEmOrdem da lista
-        print("___________________")
+    # for lista in listaListas: # Para cada lista na listaListas
+    #     lista.entradaDeDados() # Chama o método entradaDeDados da lista 
+    #     lista.mostraMediana() # Chama o método mostraMediana da lista
+    #     lista.mostraMenor() # Chama o método mostraMenor da lista
+    #     lista.mostraMaior() # Chama o método mostraMaior da lista
+    #     lista.__str__() # Chama o método __str__ da lista
+    #     lista.listarEmOrdem() # Chama o método listarEmOrdem da lista
+    #     print("___________________")
 
+    while True:
+        print("\n=== Menu ===")
+        print("1. Incluir nome na lista de nomes")
+        print("2. Incluir salário na lista de salários")
+        print("3. Incluir data na lista de datas")
+        print("4. Incluir idade na lista de idades")
+        print("5. Percorrer listas de nomes e salários")
+        print("6. Calcular valor da folha com reajuste de 10%")
+        print("7. Modificar dia das datas anteriores a 2019")
+        print("8. Sair")
+
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            nomes.entradaDeDados()
+            
+            pass
+        elif opcao == "2":
+            salarios.entradaDeDados()
+            pass
+           
+        elif opcao == "3":
+            datas.entradaDeDados()
+            pass
+            
+        elif opcao == "4":
+            idades.entradaDeDados()
+            pass
+           
+        elif opcao == "5":
+             percorrerNomeSalario(nomes.get(), salarios.get())
+             pass
+           
+        elif opcao == "6":
+            salarios.ajustarSalarios()
+            salarios.calcularFolha()
+            pass
+           
+        elif opcao == "7":
+           datas.modificarDiasAnteriores2019()
+           pass
+        elif opcao == "8":
+            print("Saindo...")
+            break
+        else:
+            print("Opção inválida. Escolha uma opção válida.")
+
+    #Chama fora mesmo como uma função passando os dois parametros
     #Utilizando o iterador zip para percorrer as listas de nomes e salários simultaneamente
-    print("Iterador zip - Nomes e Salários:")
-    for nome, salario in zip(nomes, salarios):
-        print(f"{nome}: R${salario}")
+    # # Criar função para dentro de lista salario;
+    # # Utilizando o iterador map para reajustar os salários em 10% expressão lambda
+  
 
-    # Utilizando o iterador map para reajustar os salários em 10% expressão lambda
-    if not listaListas:
-            print("A lista está vazia.")
-    else: 
-        salarios_reajustados = list(map(lambda x: x * 10 / 100, salarios))
-        print("\nIterador map - Salários Reajustados em 10%:")
-        print(salarios_reajustados)
-
-
+    
     print("Fim do teste!!!")
 
 if __name__ == "__main__":
