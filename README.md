@@ -3,4 +3,4 @@
 
 > Componentes da equipe
 * Carlos André de Souza Dias
-* 
+* Daniel Oliveira da Silva
