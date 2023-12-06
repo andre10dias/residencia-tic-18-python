@@ -1,0 +1,5 @@
+Tarefa 1,True
+Tarefa 2,True
+Tarefa 3,False
+Tarefa 4,False
+Mais uma tarefa,False
